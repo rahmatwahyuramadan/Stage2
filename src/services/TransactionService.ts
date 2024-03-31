@@ -13,10 +13,14 @@ export default new class TransactionService{
             const body = req.body
             const { error } = addTransaction.validate(body)
             if (error) return res.status(400).json(error.message)
-            const id = Number(req.params.id)
-            if (id===null){
-                return res.status(404).json({massage: "user not found"})
-            }
+            const tokenDecode = res.locals.loginSession.tokenPayload
+            const id = tokenDecode.id
+
+            const thisWallet = await this.WalletRepository.findUnique({ 
+                where: {userId: id}
+            })
+
+            if(!thisWallet) return res.status(400).json({ message: "Wallet not found!" })
 
             const transaction = await this.TransactionRepository.create({
                 data: {
@@ -25,36 +29,60 @@ export default new class TransactionService{
                     category: body.category,
                     note: body.note,
                     userId: id,
-                    // walletId: id,
                     createdAt: new Date()
                 }
             })
-            const wallet = await this.WalletRepository.create({
-                data: {
-                    inflow: transaction.amount,
-                    outflow: transaction.amount,
-                    balence: transaction.amount,
-                    userId: id,
-                    createdAt: new Date()
-                }
-            })
-            const _ = await this.TransactionRepository.updateMany({
-                where: {
-                    id: transaction.id,
-                },
-                data: {
-                    walletId: wallet.id,
-                }
-            })
+            
+            const in_flow = thisWallet.inflow + body.amount
+            const out_flow = thisWallet.outflow + body.amount
+            let balance = parseInt('')
+            let updatedWallet: any
 
-            transaction.walletId = wallet.id
+            if(body.category === "income") {
+                balance = thisWallet.balance + body.amount
+
+                const updateWallet = await this.WalletRepository.update({
+                        where: {userId: id},
+                        data: {
+                            inflow: in_flow,
+                            balance: balance,
+                            userId: id
+                        }
+                    })
+
+                    updatedWallet = updateWallet
+            }else {
+                balance = thisWallet.balance - body.amount
+
+                const updateWallet = await this.WalletRepository.update({
+                        where: {userId: id},
+                        data: {
+                            outflow: out_flow,
+                            balance: balance,
+                            userId: id
+                        }
+                    })
+
+                    updatedWallet = updateWallet
+            }
 
             return res
             .status(201)
-            .json({transaction: transaction, wallet: wallet})
+            .json({transaction, updatedWallet})
 
         } catch (error) {
             console.log(error);
             return res.status(500).json(error)
         }
-    }}
+    }
+
+    async addToWallet(req: Request, res: Response){
+        try{
+
+        }catch(error){
+            return res.status(500).json(error)
+        }
+    }
+
+
+}

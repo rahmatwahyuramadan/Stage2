@@ -24,25 +24,22 @@ model User {
 }
 
 model Transaction {
-  id        Int     @id @default(autoincrement())
-  amount    Int
-  date      DateTime
-  category  String
-  note      String
-  User      User?   @relation(fields: [userId], references: [id])
-  userId    Int?
-  wallet    Wallet? @relation(fields: [walletId], references: [id])
-  walletId  Int?
-  createdAt DateTime
+  id              Int     @id @default(autoincrement())
+  amount          Int
+  date            DateTime
+  category        String
+  note            String
+  Transaction     User   @relation(fields: [userId], references: [id])
+  userId          Int
+  createdAt       DateTime
 }
 
 model Wallet {
   id          Int @id @default(autoincrement())
-  inflow      Int
-  outflow     Int
-  balence     Int
-  transaction Transaction[]
-  User        User?  @relation(fields: [userId], references: [id])
-  userId      Int?
+  inflow      Int?
+  outflow     Int?
+  balance     Int
+  Wallet      User  @relation(fields: [userId], references: [id])
+  userId      Int  @unique
   createdAt   DateTime
 }

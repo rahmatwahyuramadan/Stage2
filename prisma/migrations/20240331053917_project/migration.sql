@@ -26,9 +26,9 @@ CREATE TABLE "Transaction" (
 -- CreateTable
 CREATE TABLE "Wallet" (
     "id" SERIAL NOT NULL,
-    "inflow" INTEGER NOT NULL,
-    "outflow" INTEGER NOT NULL,
-    "balence" INTEGER NOT NULL,
+    "inflow" INTEGER,
+    "outflow" INTEGER,
+    "balence" INTEGER,
     "userId" INTEGER,
     "createdAt" TIMESTAMP(3) NOT NULL,
 
@@ -37,6 +37,9 @@ CREATE TABLE "Wallet" (
 
 -- CreateIndex
 CREATE UNIQUE INDEX "User_email_key" ON "User"("email");
+
+-- CreateIndex
+CREATE UNIQUE INDEX "Wallet_userId_key" ON "Wallet"("userId");
 
 -- AddForeignKey
 ALTER TABLE "Transaction" ADD CONSTRAINT "Transaction_userId_fkey" FOREIGN KEY ("userId") REFERENCES "User"("id") ON DELETE SET NULL ON UPDATE CASCADE;

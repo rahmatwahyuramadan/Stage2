@@ -9,6 +9,7 @@ const prisma = new PrismaClient()
 
 export default new class UserService{
     private readonly UserRepoitory = prisma.user
+    private readonly WalletRepository = prisma.wallet
 
     async register (req: Request, res: Response): Promise<Response> {
         try{
@@ -54,7 +55,25 @@ export default new class UserService{
             }
             const token = jwt.sign({ tokenPayload }, 'SECRET_KEY', { expiresIn: 99999 })
 
-            return res.status(200).json(token)
+            const isWallet = await this.WalletRepository.findUnique({
+                where: {userId: isMailRegisted.id}
+            })
+            let thisWallet: any
+            if (!isWallet){
+                const wallet = await this.WalletRepository.create({
+                    data: {
+                        inflow: 0,
+                        outflow: 0,
+                        balance: 0,
+                        userId: isMailRegisted.id,
+                        createdAt: new Date()
+                    }
+                })
+                thisWallet = wallet
+            }
+
+
+            return res.status(200).json({token, thisWallet})
 
         }catch (error) {
             return res.status(500).json(error)
