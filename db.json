@@ -1,0 +1,128 @@
+{
+  "card": [
+    {
+      "id": 1,
+      "imageSrc": "https://i.ibb.co/QcH4RZ2/card1.png",
+      "title": "100% Secured Data"
+    },
+    {
+      "id": 2,
+      "imageSrc": "https://i.ibb.co/tmN5rhz/card2.png",
+      "title": "Trusted by users"
+    },
+    {
+      "id": 3,
+      "imageSrc": "https://i.ibb.co/nBb8DKP/card3.png",
+      "title": "Easy to use"
+    },
+    {
+      "id": 4,
+      "imageSrc": "https://i.ibb.co/9vSgyT7/card4.png",
+      "title": "App of the day"
+    }
+  ],
+  "tableMain1": [
+    {
+      "id": 1,
+      "cash": "Rp. 8,890,000.00",
+      "image": "https://i.ibb.co/hsH9SMk/inflow.png",
+      "title": "Inflow"
+    },
+    {
+      "id": 2,
+      "cash": "Rp. 8,890,000.00",
+      "image": "https://i.ibb.co/4fFLNd3/outflow.png",
+      "title": "Outflow"
+    },
+    {
+      "id": 3,
+      "cash": "Rp. 8,890,000.00",
+      "image": "https://i.ibb.co/hsH9SMk/inflow.png",
+      "title": "Balance"
+    }
+  ],
+  "tableMain2": [
+    {
+      "id": 1,
+      "date": "05",
+      "day": "Friday",
+      "month": "August",
+      "year": "2022",
+      "total": "-206,000",
+      "transactions": [
+        {
+          "id": 1,
+          "image": "https://i.ibb.co/JR81sJq/family.png",
+          "category": "Family",
+          "note": "Jajan malam minggu",
+          "amount": "278,000"
+        },
+        {
+          "id": 2,
+          "image": "https://i.ibb.co/qyBj6JF/fnb.png",
+          "category": "Food and Beverages",
+          "note": "Ayam geprek mak cik",
+          "amount": "28,000"
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "date": "04",
+      "day": "Thrusday",
+      "month": "August",
+      "year": "2022",
+      "total": "-16,000",
+      "transactions": [
+        {
+          "id": 1,
+          "image": "https://i.ibb.co/qyBj6JF/fnb.png",
+          "category": "Food and Beverages",
+          "note": "Bakso cuanki",
+          "amount": "16,000"
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "date": "03",
+      "day": "Wednesday",
+      "month": "August",
+      "year": "2022",
+      "total": "4,984,000",
+      "transactions": [
+        {
+          "id": 1,
+          "image": "https://i.ibb.co/qyBj6JF/fnb.png",
+          "category": "Food and Beverages",
+          "note": "Bakso cuanki",
+          "amount": "16,000"
+        },
+        {
+          "id": 2,
+          "image": "https://i.ibb.co/kXrXPCS/salary.png",
+          "category": "Salary",
+          "note": "Gaji bulan juli",
+          "amount": "5,000,000"
+        }
+      ]
+    }
+  ],
+  "testi": [
+    {
+      "id": 1,
+      "testi": "Perfect app. My wife and use it to track all our expenses and income. We generate our household accounts and budget using this fab app.",
+      "name": "Ilham Fathullah"
+    },
+    {
+      "id": 2,
+      "testi": "Perfect app. My wife and use it to track all our expenses and income. We generate our household accounts and budget using this fab app.",
+      "name": "Hilal Akbar"
+    },
+    {
+      "id": 3,
+      "testi": "Perfect app. My wife and use it to track all our expenses and income. We generate our household accounts and budget using this fab app.",
+      "name": "Hizamrul Jaen"
+    }
+  ]
+}
