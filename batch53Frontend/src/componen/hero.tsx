@@ -9,6 +9,7 @@ import Footer from './Footer';
 import Navbar from './Navbar';
 import { TestiProvider } from '../context/testimoni/testiProvider';
 import CardTestimonial from '../atom/cardTestimonial';
+import { CardProvider } from '../context/Card/cardProvider';
 
 const Hero = () => {
     return (
@@ -23,17 +24,10 @@ const Hero = () => {
             </div>
 
             <div className="flex flex-wrap justify-center mt-10 gap-6">
-                <div className='w-44'>
-                <Card imageSrc={Card1} title="100% Secured Data" />
-                </div>
-                <div className='w-44'>
-                <Card imageSrc={Card2} title="100% Secured Data" />
-                </div>
-                <div className='w-44'>
-                <Card imageSrc={Card3} title="100% Secured Data" />
-                </div>
-                <div className='w-44'>
-                <Card imageSrc={Card4} title="100% Secured Data" />
+                <div className=' flex flex-wrap justify-center mt-10 gap-6'>
+                <CardProvider>
+                <Card />
+                </CardProvider>
                 </div>
                 <Feature/>
             </div>
