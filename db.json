@@ -63,6 +63,13 @@
           "category": "Food and Beverages",
           "note": "Ayam geprek mak cik",
           "amount": "28,000"
+        },
+        {
+          "id": 3,
+          "image": "https://i.ibb.co/qyBj6JF/fnb.png",
+          "category": "Food and Beverages",
+          "note": "Ayam geprek mak cik",
+          "amount": "28,000"
         }
       ]
     },
