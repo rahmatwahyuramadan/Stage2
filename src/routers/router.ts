@@ -15,6 +15,9 @@ router.post('/login', UserController.login)
 router.post('/addTransaction', upload.single('image'), AuthMiddleware.AuthTi, TransactionController.addTransaction)
 router.get('/Transaction/:id', AuthMiddleware.AuthTi, TransactionController.findById)
 router.get('/Transaction/:usetId', AuthMiddleware.AuthTi, TransactionController.findByUserId)
+router.get('/lastMonthTransaction', AuthMiddleware.AuthTi, TransactionController.lastMonthTransaction)
+router.get('/thisMonthTransaction', AuthMiddleware.AuthTi, TransactionController.thisMonthTransaction)
+router.get('/futureTransaction', AuthMiddleware.AuthTi, TransactionController.futureTransaction)
 
 router.post('/addCategory', upload.single('image'), AuthMiddleware.AuthTi, CategoryController.addCategory)
 

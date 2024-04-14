@@ -122,4 +122,111 @@ export default new class TransactionService{
         }
     }
 
+    async lastMonthTransaction (req: Request, res: Response){
+        try{
+            const tokenDecode = res.locals.loginSession.tokenPayload
+            const id = tokenDecode.id
+
+            const transactions = await this.TransactionRepository.findMany({
+                where: { userId: id },
+                include: {
+                    category_detail: true
+                }
+            });
+
+            const lastMonth: any[]= []
+
+            {transactions.map((data) => {
+                const tMonth: number = new Date().getMonth() + 1
+
+                const dMonth: number = new Date(data.date).getMonth() + 1
+
+                const nData = {
+                    ...data,
+                    dMonth
+                }
+
+                if(nData.dMonth + 1 === tMonth) {
+                    lastMonth.push(nData)
+                }
+
+            })}
+
+            return res.status(201).json(lastMonth)
+        }catch(error){
+            return res.status(500).json(error)
+        }
+    }
+
+    async thisMonthTransaction(req: Request, res: Response) {
+        try{
+            const tokenDecode = res.locals.loginSession.tokenPayload
+            const id = tokenDecode.id
+            
+            const transactions = await this.TransactionRepository.findMany({
+                where: { userId: id },
+                include: {
+                    category_detail: true
+                }
+            })
+            
+            const thisMonth: any[] = []
+
+            {transactions.map((data) => {
+                const tMonth: number = new Date().getMonth() + 1
+
+                const dMonth: number = new Date(data.date).getMonth() + 1
+
+                const nData = {
+                    ...data,
+                    dMonth
+                }
+
+                if(nData.dMonth === tMonth) {
+                    thisMonth.push(nData)
+                }
+
+            })}
+
+            return res.status(201).json(thisMonth)
+        }catch(err) {
+            return res.status(500).json(err)
+        }
+    }
+    
+    async futureTransaction(req: Request, res: Response) {
+        try{
+            const tokenDecode = res.locals.loginSession.tokenPayload
+            const id = tokenDecode.id
+            
+            const thisTransaction = await this.TransactionRepository.findMany({
+                where: { userId: id },
+                include: {
+                    category_detail: true
+                }
+            })
+            
+            const thisFuture: any[] = []
+
+            {thisTransaction.map((data) => {
+                const tMonth: number = new Date().getMonth() + 1
+
+                const dMonth: number = new Date(data.date).getMonth() + 1
+
+                const nData = {
+                    ...data,
+                    dMonth
+                }
+
+                if(tMonth + 1 === nData.dMonth) {
+                    thisFuture.push(nData)
+                }
+
+            })}
+
+            return res.status(201).json(thisFuture)
+        }catch(err) {
+            return res.status(500).json(err)
+        }
+    }
 }
