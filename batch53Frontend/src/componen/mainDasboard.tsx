@@ -1,17 +1,18 @@
 import TableMain1 from "../atom/tableMain1"
 import TableMain2 from "../atom/tableMain2"
 import TableMain3 from "../atom/tableMain3"
-import AddTrans from "../assets/AddTrans.png"
 import NavbarDashboard from "./NavbarDashboard"
-import dammyData from "../mocks/user.json"
-import React from "react"
-import { Iwallet } from "../interface/wallet"
+import { useNavigate } from "react-router-dom"
 import { Table1Provider } from "../context/tableMain1/table1Provider"
 import { Table2Provider } from "../context/tableMain2/table2Provider"
 
 
 const MainDashboard = () => {
-    
+    const navigate = useNavigate()
+
+    const AddTrans = () => {
+        navigate ("/addTransaction")
+    }
 
     return (
     
@@ -38,8 +39,10 @@ const MainDashboard = () => {
                     <TableMain3 />
                 </div>
             </div>
-            <div className="">
-            <img src={AddTrans} alt="" className="absolute bottom-4 right-4 cursor-pointer" />
+            <div className="m-10">
+            <button onClick={AddTrans} className="flex items-center justify-center">
+                    <p className="w-12 h-12 text-4xl font-bold text-white bg-[#393939] rounded-full">+</p>
+            </button>
             </div>
         </>
     )

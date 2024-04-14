@@ -7,7 +7,7 @@ const Card = (): React.JSX.Element => {
     return (
         <>
         {cards.map((card)=>
-        <div key={card.id} className="w-full w-52 bg-white border rounded-lg">
+        <div key={card.id} className="w-full w-48 bg-white border rounded-lg">
             <img className="p-8 rounded-t-lg w-1/2 mx-auto" src={card.imageSrc} alt="product image" />
             <h5 className="mb-8 text-xl text-center font-semibold tracking-tight text-blue-900">{card.title}</h5>
         </div>

@@ -21,13 +21,13 @@ const TransactionPage = () => {
                         </div>
                         <div className="mb-4">
                             <label htmlFor="category" className="block text-sm font-medium text-blue-900 mb-2">Category</label>
-                            <select id="category" name="category" className="shadow-sm rounded-md w-full px-3 py-2 border border-blue-900 bg-green-50" required>
-                                <option value="" disabled selected>Select category</option>
+                            <input id="category" name="category" className="shadow-sm rounded-md w-full px-3 py-2 border border-blue-900 bg-green-50" required>
+                                {/* <option value="" disabled selected>Select category</option>
                                 <option value="blue">Blue</option>
                                 <option value="white">White</option>
                                 <option value="pink">Pink</option>
-                                <option value="gold">Gold</option>
-                            </select>
+                                <option value="gold">Gold</option> */}
+                            </input>
                         </div>
                         <div className="mb-4">
                             <label htmlFor="note" className="block text-sm font-medium text-blue-900 mb-2">Note</label>
