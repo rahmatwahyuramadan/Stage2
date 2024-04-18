@@ -27,6 +27,7 @@ export default new class UserService{
                     email: body.email,
                     password: hashPassword,
                     fullname: body.fullname,
+                    role: "bisa",
                     createdAt: new Date()
                 }
             })
@@ -51,7 +52,8 @@ export default new class UserService{
             if (!isMacthPassword) return res.status(409).json({ message: "Incorrect Password!" })
 
             const tokenPayload = {
-                id: isMailRegisted.id
+                id: isMailRegisted.id,
+                role: isMailRegisted.role
             }
             const token = jwt.sign({ tokenPayload }, 'SECRET_KEY', { expiresIn: 99999 })
 

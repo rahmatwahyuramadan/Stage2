@@ -17,6 +17,9 @@ export default new class CategoryService{
             if (error) return res.status(400).json(error.message)
             const tokenDecode = res.locals.loginSession.tokenPayload
             const id = tokenDecode.id
+            const role = tokenDecode.role
+
+            if( role != "admin") return res.status(404).json({mesaage: "Access Block!!"})
 
             const image = req.file
             if (!image) return res.status(400).json({ message: "No file added!" })
@@ -29,7 +32,7 @@ export default new class CategoryService{
 
             const category = await this.CategoryRepository.create({
                 data: {
-                    category: body.category,
+                    category_name: body.category_name,
                     type: body.type,
                     image: uploadCloudinary.secure_url,
                     userId: id
