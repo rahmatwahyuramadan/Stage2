@@ -15,11 +15,12 @@ export default new class CategoryService{
             const body = req.body
             const { error } = addCategory.validate(body)
             if (error) return res.status(400).json(error.message)
+                
             const tokenDecode = res.locals.loginSession.tokenPayload
             const id = tokenDecode.id
             const role = tokenDecode.role
 
-            if( role != "admin") return res.status(404).json({mesaage: "Access Block!!"})
+            if( role != "Admin") return res.status(404).json({mesaage: "Access Block!!"})
 
             const image = req.file
             if (!image) return res.status(400).json({ message: "No file added!" })
@@ -34,8 +35,7 @@ export default new class CategoryService{
                 data: {
                     category_name: body.category_name,
                     type: body.type,
-                    image: uploadCloudinary.secure_url,
-                    userId: id
+                    image: uploadCloudinary.secure_url
                 }
             })
 
@@ -47,14 +47,12 @@ export default new class CategoryService{
             return res.status(500).json(error)
         }
     }
-    async findCategoryByUserId(req: Request, res: Response) {
+    async findCategory(req: Request, res: Response) {
         try{
             const tokenDecode = res.locals.loginSession.tokenPayload
             const user_id = tokenDecode.id
 
-            const thisCategory = await this.CategoryRepository.findMany({
-                where: { userId: user_id }
-            })
+            const thisCategory = await this.CategoryRepository.findMany()
 
             if(!thisCategory) return res.status(400).json({
                 message: "No category found!"

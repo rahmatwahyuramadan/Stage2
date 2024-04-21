@@ -5,4 +5,7 @@ export default new class CategoryController{
     addCategory(req: Request, res: Response){
         CategoryService.addCategory(req,res)
     }
+    findCategory(req: Request, res: Response){
+        CategoryService.findCategory(req,res)
+    }
 }

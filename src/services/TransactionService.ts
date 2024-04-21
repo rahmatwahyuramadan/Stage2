@@ -16,6 +16,7 @@ export default new class TransactionService{
             const body = req.body
             const { error } = addTransaction.validate(body)
             if (error) return res.status(400).json(error.message)
+
             const tokenDecode = res.locals.loginSession.tokenPayload
             const id = tokenDecode.id
 
@@ -35,7 +36,7 @@ export default new class TransactionService{
                 data: {
                     amount: body.amount,
                     date:  new Date(body.date).toISOString(),
-                    category: thisCategory.category_name,
+                    category: body.category,
                     note: body.note,
                     userId: id,
                     createdAt: new Date()
@@ -48,7 +49,7 @@ export default new class TransactionService{
             
             let updatedWallet: any
 
-            if(thisCategory?.category_name === "Salary" || thisCategory?.category_name === "Sales") {
+            if(thisCategory?.type === "Income") {
                 balance = thisWallet.balance + body.amount
 
                 const updateWallet = await this.WalletRepository.update({
@@ -82,24 +83,6 @@ export default new class TransactionService{
 
         } catch (error) {
             console.log(error);
-            return res.status(500).json(error)
-        }
-    }
-
-    async findById(req: Request, res:Response): Promise<Response>{
-        try{
-            const id = Number(req.params.id)
-
-            if(id===null){
-                return res.status(404).json({massage: "id not found"})
-            }
-
-            const transaction = await this.TransactionRepository.findUnique({
-                where: {id: id}
-            })
-
-            return res.status(200).json(transaction)
-        }catch(error){
             return res.status(500).json(error)
         }
     }

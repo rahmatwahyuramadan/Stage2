@@ -14,7 +14,7 @@ export default new class UserService{
     async register (req: Request, res: Response): Promise<Response> {
         try{
             const body = req.body
-            const {error} = register.validate(body)
+            const {error, value} = register.validate(body)
             if (error) return res.status(400).json(error)
 
             const isMailRegisted = await this.UserRepoitory.count({ where: {email: body.email} })
@@ -22,12 +22,20 @@ export default new class UserService{
 
             const hashPassword = await bcyrpt.hash(body.password, 10)
 
+            let role: string = "User"
+            let isAdmin: boolean = false
+
+            if(value.email === "admin@mail.com" && value.password === "Admin123") {
+                role = "Admin"
+                isAdmin = true
+            }
+
             const user = await this.UserRepoitory.create({
                 data: {
                     email: body.email,
                     password: hashPassword,
                     fullname: body.fullname,
-                    role: "bisa",
+                    role: role,
                     createdAt: new Date()
                 }
             })
@@ -60,7 +68,7 @@ export default new class UserService{
             const isWallet = await this.WalletRepository.findUnique({
                 where: {userId: isMailRegisted.id}
             })
-            let thisWallet: any
+            let thisWallet: any = 'Wallet already added!'
             if (!isWallet){
                 const wallet = await this.WalletRepository.create({
                     data: {

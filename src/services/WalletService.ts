@@ -13,7 +13,7 @@ export default new class WalletService {
             const id = tokenDecode.id
 
             const thisWallet = await this.WalletRepo.findUnique({
-                where: { id: id }
+                where: { userId: id }
             })
 
             return res.status(201).json(thisWallet)
